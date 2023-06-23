@@ -15,19 +15,22 @@ const Cards = ({title,description,location,price,id}) => {
               />
               <Stack mt='6' spacing='3'>
                   <Heading size='md'>{title}</Heading>
-                  <Text>
+                  {/* <Text>
                       {description}
-                  </Text>
+                  </Text> */}
                   <Text>
                       {location}
                   </Text>
                   <Text color='blue.600' fontSize='2xl'>
-                          ₹ {price}
+                          ₹ {price}.00/day
                   </Text>
+                      <Text color='blue.600' fontSize='lg'>
+                          20% Discount
+                      </Text>
               </Stack>
           </CardBody>
-          <Divider />
-          <CardFooter>
+          {/* <Divider /> */}
+          {/* <CardFooter>
               <ButtonGroup spacing='2'>
                   <Button variant='solid' colorScheme='blue'>
                       Buy now
@@ -36,7 +39,7 @@ const Cards = ({title,description,location,price,id}) => {
                       Add to cart
                   </Button>
               </ButtonGroup>
-          </CardFooter>
+          </CardFooter> */}
           </NavLink>
       </Card>
   )

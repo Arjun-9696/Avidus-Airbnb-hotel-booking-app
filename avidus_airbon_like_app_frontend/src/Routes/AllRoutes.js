@@ -7,6 +7,7 @@ import PrivateRoute from './PrivateRoute';
 import Error from '../Pages/Error';
 import PropertyForm from '../Components/PrropertyForm/PropertyForm';
 import Property from '../Components/Property/Property';
+import UserProfile from '../Components/UserProfile/UserProfile';
 
 const AllRouter = () => {
     return (
@@ -19,6 +20,7 @@ const AllRouter = () => {
                     // </PrivateRoute>
                 }
             />
+            <Route path="/userProfile" element={<UserProfile />} />
             <Route path="/property/:id" element={<Property/>} />
             <Route path="/propertyform" element={<PropertyForm />} />
             <Route path="/signin" element={<SignIn />} />

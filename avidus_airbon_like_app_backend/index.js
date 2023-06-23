@@ -4,6 +4,7 @@ const cors = require('cors');
 const { Register, Login } = require('./src/controllers/authController');
 const ListingController = require('./src/controllers/listingController');
 const SearchController = require('./src/controllers/searchController');
+const BookingController = require('./src/controllers/bookingController');
 const connect = require('./src/configs/db');
 app.use(express.json());
 app.use(cors());
@@ -11,6 +12,7 @@ app.post('/register', Register);
 app.post('/login', Login);
 app.use('/listings', ListingController);
 app.use('/search', SearchController);
+app.use('/booking', BookingController);
 app.use('/', (req, res) => {
     res.json({ message: 'Hello🥳 server is running' })
 });
