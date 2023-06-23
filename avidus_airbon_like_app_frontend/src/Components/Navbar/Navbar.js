@@ -32,7 +32,11 @@ const Navbar = () => {
                         <Heading cursor={"pointer"} colorScheme="black" onClick={headingHandle} >Avidus Airbnb App</Heading>
                     </Box>
                 </Box>
-                <Box>home</Box>
+                <Box>
+                    <NavLink to="propertyform">
+                        <Button colorScheme="blue">Add Property</Button>
+                        </NavLink>
+                </Box>
                 <Box marginRight="20px">
                     {isAuth ? (
                         <Button colorScheme="blue" onClick={logoutHandler}>
