@@ -1,4 +1,3 @@
-// components/Listings/PropertyList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import "./PropertyList.css"
@@ -6,7 +5,6 @@ import Cards from '../Card/Card';
 import { Box, Heading } from '@chakra-ui/react';
 function PropertyList() {
     const [properties, setProperties] = useState([]);
-
 
     useEffect(() => {
         // Make a GET request to the backend API to fetch property listings
@@ -22,7 +20,7 @@ function PropertyList() {
         };
         fetchProperties();
     }, []);
-    console.log('properties:', properties)
+
     return (
         <>
             <Box marginBottom={"50px"}>

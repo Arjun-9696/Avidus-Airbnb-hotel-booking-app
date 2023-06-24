@@ -1,6 +1,5 @@
 import React from 'react';
 import "./SearchResult.css"
-
 import { Box, Card, CardBody, Heading, Image, Stack, Text } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 
@@ -23,9 +22,6 @@ const SearchResult = ({ searchedData, setSearchedData, onClose }) => {
                                     />
                                     <Stack mt='6' spacing='3'>
                                         <Heading size='md'>{property.title}</Heading>
-                                        {/* <Text>
-                      {description}
-                  </Text> */}
                                         <Text>
                                             {property.location}
                                         </Text>
