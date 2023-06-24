@@ -55,7 +55,7 @@ const Signup = () => {
     if (isError) {
         toast({
             title: 'Sign Up Failed',
-            description: 'User already registered.',
+            description: 'User already registered or password should be minimum 8 Characters',
             status: 'error',
             duration: 3000,
             isClosable: true,
@@ -78,6 +78,7 @@ const Signup = () => {
                 isClosable: true,
                 position: 'top',
             });
+            window.location.reload();
         }
         dispatch(register(state)).then((r) => {
             if (r === REGISTER_SUCCESS) {
