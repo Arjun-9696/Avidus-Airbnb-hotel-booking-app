@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { getLocalData } from '../../Utils/LocalStorage';
-import { Box, Card, CardBody, CardHeader, Heading, Image, Stack, Text } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardHeader, Heading, Image, Spinner, Stack, Text } from '@chakra-ui/react';
 
 function UserProfile() {
     const [userId, setUserId] = useState("")
@@ -84,40 +84,52 @@ function UserProfile() {
             </Box>
             <Box marginBottom={"50px"} >
                 <Heading paddingTop={5} size="lg" textAlign={"center"}>Property Booked by {userName}</Heading>
-                <Box className="listing_div" >
-                    {result?.map((book, index) => (
-                        <Box key={index}>
-                            <Card maxW='sm' textAlign={"center"} >
-                                <CardBody>
-                                    <Image
-                                        src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
-                                        alt='Green double couch with wooden legs'
-                                        borderRadius='lg'
-                                        w="100%"
-                                    />
-                                    <Stack mt='6' spacing='3'>
-                                        <Heading size='md'>{book.title}</Heading>
-                                        <Text>
-                                            {book.location}
-                                        </Text>
-                                        <Text color='blue.600' fontSize='2xl'>
-                                            ₹ {book.cost}
-                                        </Text>
-                                        <Text fontSize='lg'>
-                                            {book.days} days booked
-                                        </Text>
-                                        <Text fontSize='lg'>
-                                            Start Date : {book.startDate}
-                                        </Text>
-                                        <Text fontSize='lg'>
-                                            End date: {book.endDate}
-                                        </Text>
-                                    </Stack>
-                                </CardBody>
-                            </Card>
-                        </Box>
-                    ))}
-                </Box>
+                {result?.length > 0 ? (
+                    <Box className="listing_div" >
+                        {result?.map((book, index) => (
+                            <Box key={index}>
+                                <Card maxW='sm' textAlign={"center"} >
+                                    <CardBody>
+                                        <Image
+                                            src='https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80'
+                                            alt='Green double couch with wooden legs'
+                                            borderRadius='lg'
+                                            w="100%"
+                                        />
+                                        <Stack mt='6' spacing='3'>
+                                            <Heading size='md'>{book.title}</Heading>
+                                            <Text>
+                                                {book.location}
+                                            </Text>
+                                            <Text color='blue.600' fontSize='2xl'>
+                                                ₹ {book.cost}
+                                            </Text>
+                                            <Text fontSize='lg'>
+                                                {book.days} days booked
+                                            </Text>
+                                            <Text fontSize='lg'>
+                                                Start Date : {book.startDate}
+                                            </Text>
+                                            <Text fontSize='lg'>
+                                                End date: {book.endDate}
+                                            </Text>
+                                        </Stack>
+                                    </CardBody>
+                                </Card>
+                            </Box>
+                        ))}
+                    </Box>
+                ) :(
+                    <Box display={"flex"} marginTop={10} justifyContent={"center"} alignItems={"center"}>
+                        <Spinner
+                            thickness='4px'
+                            speed='0.65s'
+                            emptyColor='gray.200'
+                            color='blue.500'
+                            size='xl'
+                        />
+                    </Box>
+                )}
             </Box>
         </>
     );
