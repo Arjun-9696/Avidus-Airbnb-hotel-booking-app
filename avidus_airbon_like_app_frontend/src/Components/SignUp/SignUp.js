@@ -61,6 +61,7 @@ const Signup = () => {
             isClosable: true,
             position: 'top',
         });
+        window.location.reload();
     }
 
     const signupHandler = () => {
@@ -128,6 +129,7 @@ const Signup = () => {
                                         setter({ type: 'password', payload: e.target.value })
                                     }
                                 />
+                                <Text>Password Should be minimum 8 Characters</Text>
                             </FormControl>
                             <Stack>
                                 <Button

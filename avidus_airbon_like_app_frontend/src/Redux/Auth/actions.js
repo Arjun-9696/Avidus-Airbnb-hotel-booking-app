@@ -2,7 +2,6 @@ import * as types from './actionTypes';
 import axios from 'axios';
 
 const register = (payload) => (dispatch) => {
-    console.log('payload:', payload);
     dispatch({ type: types.REGISTER_REQUEST });
 
     return axios
