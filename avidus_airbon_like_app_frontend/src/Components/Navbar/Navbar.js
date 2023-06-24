@@ -73,14 +73,31 @@ import {
     Stack,
     useToast,
     Heading,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalCloseButton,
+    ModalBody,
+    ModalFooter,
+    Input,
+    Text,
+    Tabs,
+    TabList,
+    Tab,
+    TabPanels,
+    TabPanel,
+    SimpleGrid,
+    Image,
 } from '@chakra-ui/react';
-import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
+import { HamburgerIcon, CloseIcon, SearchIcon } from '@chakra-ui/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../Redux/Auth/actions';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getLocalData } from '../../Utils/LocalStorage';
-const Links = ['Dashboard', 'Projects', 'Team'];
+
+import SearchPage from '../Search/SearchPage';
 
 // const NavLink = ({ children }) => (
 //     <Link
@@ -96,28 +113,30 @@ const Links = ['Dashboard', 'Projects', 'Team'];
 //     </Link>
 // );
 
-const Navbar=()=> {
-    const [userName,setUserName]=useState("")
+const Navbar = () => {
+    const [userName, setUserName] = useState("")
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const finalRef = useRef(null)
     let isAuth = useSelector((state) => state.AuthReducer.isAuth);
-        const toast = useToast()
-        const dispatch = useDispatch();
-        const logoutHandler = () => {
-            localStorage.removeItem('token');
-            dispatch(logout());
-            toast({
-                title: 'Log Out Successful 👋',
-                description: 'Visit again 🙏',
-                status: 'success',
-                duration: 3000,
-                isClosable: true,
-                position: 'top',
-            });
-        };
-        const navigate = useNavigate();
-        const headingHandle = () => {
-            navigate('/')
-        }
+    const toast = useToast()
+    const dispatch = useDispatch();
+    const logoutHandler = () => {
+        localStorage.removeItem('token');
+        dispatch(logout());
+        toast({
+            title: 'Log Out Successful 👋',
+            description: 'Visit again 🙏',
+            status: 'success',
+            duration: 3000,
+            isClosable: true,
+            position: 'top',
+        });
+    };
+    const navigate = useNavigate();
+    const headingHandle = () => {
+        navigate('/')
+    }
+  
     useEffect(() => {
         const storedData = getLocalData("token")
         let userData = JSON.parse(storedData)
@@ -136,8 +155,8 @@ const Navbar=()=> {
                     />
                     <HStack spacing={8} alignItems={'center'}>
                         <Box paddingLeft="20px">
-                                                <Heading cursor={"pointer"} size="sm" colorScheme="black" onClick={headingHandle} >Avidus Airbnb App</Heading>
-                                         </Box>
+                            <Heading cursor={"pointer"} size="sm" colorScheme="black" onClick={headingHandle} >Avidus Airbnb App</Heading>
+                        </Box>
                         {/* <Box>Avidus Airbnb App</Box> */}
                         <HStack
                             as={'nav'}
@@ -146,16 +165,83 @@ const Navbar=()=> {
                             <NavLink to="propertyform"
                                 px={2}
                                 py={1}
-                                
-                                >
+
+                            >
                                 <Button colorScheme="gray">
-                                    
-                                Add Property
-                                    </Button> 
+                                    Add Property
+                                </Button>
+
                             </NavLink>
+                            <>
+                                {/* <Box ref={finalRef} tabIndex={-1} aria-label='Focus moved to this box'>
+                                    Some other content that'll receive focus on close.
+                                </Box> */}
+                                <Box style={{ width: "250px", height: "2rem", border: ".1px solid white", borderRadius: "15px", display: "flex", justifyContent: "centre", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }} onClick={onOpen}>
+                                    {/* <Button mt={2} > */}
+                                    <Text textAlign={"center"} paddingLeft={5} paddingTop={"1.5px"} >
+                                        Anywhere |
+                                        Any Week |
+                                    </Text>
+                                    <SearchIcon marginLeft={5} marginTop={2} />
+                                    {/* </Button> */}
+                                </Box>
+                                <Modal size={"4xl"} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
+                                    <ModalOverlay />
+                                    <ModalContent>
+                                        <ModalHeader>Search</ModalHeader>
+                                        <ModalCloseButton />
+                                        <ModalBody>
+                                            <SearchPage/>
+                                            {/* <Tabs variant='soft-rounded' colorScheme='green'>
+                                                <TabList>
+                                                    <Tab>Location</Tab>
+                                                    <Tab>Title</Tab>
+                                                    <Tab>Date</Tab>
+                                                    <Tab>Price</Tab>
+                                                </TabList>
+                                                <TabPanels>
+                                                    <TabPanel>
+                                                        <Stack>
+                                                            <SimpleGrid columns={[2, null, 3]} spacing='30px'>
+                                                                <Box bg='tomato' height='200px'
+                                                                    onClick={() => handleClick("Banaglore")}>
+                                                                    <Image src={Bangalore} width={"100%"} height={"100%"} />
+                                                                </Box>
+                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Mysore")}> <Image src={Mysore} width={"100%"} height={"100%"} /></Box>
+                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Goa")}> <Image src={Goa} width={"100%"} height={"100%"} /></Box>
+                                                                <Box bg='tomato' height='200px'
+
+                                                                    onClick={() => handleClick("Hyderabad")}> <Image src={Hydrabad} width={"100%"} height={"100%"} /></Box>
+                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Chennai")}> <Image src={Channai} width={"100%"} height={"100%"} /></Box>
+                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Mumbai")}> <Image src={Mumbai} width={"100%"} height={"100%"} /></Box>
+                                                            </SimpleGrid>
+                                                        </Stack>
+                                                    </TabPanel>
+                                                    <TabPanel>
+                                                        <p>title!</p>
+                                                    </TabPanel>
+                                                    <TabPanel>
+                                                        <p>date!</p>
+                                                    </TabPanel>
+                                                    <TabPanel>
+                                                        <p>price!</p>
+                                                    </TabPanel>
+                                                </TabPanels>
+                                            </Tabs> */}
+                                        </ModalBody>
+
+                                        <ModalFooter>
+                                            <Button colorScheme='blue' mr={3} onClick={onClose}>
+                                                Close
+                                            </Button>
+                                            <Button variant='ghost'>Secondary Action</Button>
+                                        </ModalFooter>
+                                    </ModalContent>
+                                </Modal>
+                            </>
                         </HStack>
                     </HStack>
-                   
+
                     <Flex alignItems={'center'}>
                         <NavLink to="/userProfile">
                             <Button
@@ -168,7 +254,7 @@ const Navbar=()=> {
                                 <Avatar
                                     size={'sm'}
                                     name={userName}
-                                   
+
                                 />
                             </Button>
                         </NavLink>
