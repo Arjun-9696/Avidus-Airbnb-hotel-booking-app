@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Image, Input, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
+import { Box, Button, Image, Input, SimpleGrid, Stack, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import Bangalore from "../../Images/bangalore.png"
 import Hydrabad from "../../Images/hydrabad.png"
 import Mysore from "../../Images/mysore.png"
@@ -46,6 +46,7 @@ const SearchForm = ({ handleSearch }) => {
     // const [location, setLocation] = useState("")
     const handleClick = (item) => {
         setLocation(item)
+        handleSearch({ location:item});
     }
     const handleFormSubmit = (e) => {
         e.preventDefault();
@@ -54,28 +55,30 @@ const SearchForm = ({ handleSearch }) => {
             description,
             location,
             price,
-            startDate,
-            endDate,
+            startDay,
+            endDay,
         };
         handleSearch(filters);
     };
 
     return (<>
         <form onSubmit={handleFormSubmit}>
+            <SimpleGrid columns={[2, null, 4]} spacing='30px'>
             <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
             <input type="text" placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} />
             <input type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-            <input type="text" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
-            <input type="text" placeholder="Start Date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
-            <input type="text" placeholder="End Date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
-            <button type="submit">Search</button>
+            <input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
+            <input type="text" placeholder="Start Date" value={startDay} onChange={(e) => setStartDay(e.target.value)} />
+            <input type="text" placeholder="End Date" value={endDay} onChange={(e) => setEndDay(e.target.value)} />
+            <Button type="submit">Search</Button>
+            </SimpleGrid>
         </form>
         <>
             <Tabs variant='soft-rounded' colorScheme='green'>
                 <TabList>
                     <Tab>Location</Tab>
-                    <Tab>Title</Tab>
                     <Tab>Date</Tab>
+                    <Tab>Title</Tab>
                     <Tab>Price</Tab>
                 </TabList>
                 <TabPanels>
@@ -83,7 +86,7 @@ const SearchForm = ({ handleSearch }) => {
                         <Stack>
                             <SimpleGrid columns={[2, null, 3]} spacing='30px'>
                                 <Box bg='tomato' height='200px'
-                                    onClick={() => handleClick("Banaglore")}>
+                                    onClick={() => handleClick("Bangalore")}>
                                     <Image src={Bangalore} width={"100%"} height={"100%"} />
                                 </Box>
                                 <Box bg='tomato' height='200px' onClick={() => handleClick("Mysore")}> <Image src={Mysore} width={"100%"} height={"100%"} /></Box>
@@ -96,18 +99,19 @@ const SearchForm = ({ handleSearch }) => {
                             </SimpleGrid>
                         </Stack>
                     </TabPanel>
+                   
+                    <TabPanel>
+                        <Box className='calendNavBarHodl mx-auto'>
+                            <Box className='NavBarCalendar' marginLeft={20}>
+                                <DateRangePicker color='black' ranges={[selectionRange]} minDate={new Date()} rangeColors={["#black"]} onChange={handleSelect} />
+                            </Box>
+                        </Box>
+                    </TabPanel>
                     <TabPanel>
                         <Input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
                     </TabPanel>
                     <TabPanel>
-                        <div className='calendNavBarHodl mx-auto'>
-                            <div className='NavBarCalendar'>
-                                <DateRangePicker color='black' ranges={[selectionRange]} minDate={new Date()} rangeColors={["#black"]} onChange={handleSelect} />
-                            </div>
-                        </div>
-                    </TabPanel>
-                    <TabPanel>
-                        <p>price!</p>
+                        <Input type="number" placeholder="Price" value={price} onChange={(e) => setPrice(e.target.value)} />
                     </TabPanel>
                 </TabPanels>
             </Tabs>

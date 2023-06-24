@@ -136,12 +136,15 @@ const Navbar = () => {
     const headingHandle = () => {
         navigate('/')
     }
-  
+
     useEffect(() => {
-        const storedData = getLocalData("token")
-        let userData = JSON.parse(storedData)
-        setUserName(userData.user.name)
-    }, []);
+        if(isAuth){
+            const storedData = getLocalData("token")
+            let userData = JSON.parse(storedData)
+            
+            setUserName(userData.user.name)
+        }
+    }, [isAuth]);
     return (
         <>
             <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
@@ -162,20 +165,26 @@ const Navbar = () => {
                             as={'nav'}
                             spacing={4}
                             display={{ base: 'none', md: 'flex' }}>
-                            <NavLink to="propertyform"
-                                px={2}
-                                py={1}
+                                {isAuth?
+                                <NavLink to="propertyform"
+                                    px={2}
+                                    py={1}
 
-                            >
-                                <Button colorScheme="gray">
-                                    Add Property
-                                </Button>
+                                >
+                                    <Button colorScheme="gray">
+                                        Add Property
+                                    </Button>
 
-                            </NavLink>
+                                </NavLink>
+                                :""}
+                            
                             <>
                                 {/* <Box ref={finalRef} tabIndex={-1} aria-label='Focus moved to this box'>
                                     Some other content that'll receive focus on close.
                                 </Box> */}
+                                {isAuth?
+                                
+                                
                                 <Box style={{ width: "250px", height: "2rem", border: ".1px solid white", borderRadius: "15px", display: "flex", justifyContent: "centre", boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px" }} onClick={onOpen}>
                                     {/* <Button mt={2} > */}
                                     <Text textAlign={"center"} paddingLeft={5} paddingTop={"1.5px"} >
@@ -185,49 +194,17 @@ const Navbar = () => {
                                     <SearchIcon marginLeft={5} marginTop={2} />
                                     {/* </Button> */}
                                 </Box>
+                                :""}
+
+
+
                                 <Modal size={"4xl"} finalFocusRef={finalRef} isOpen={isOpen} onClose={onClose}>
                                     <ModalOverlay />
                                     <ModalContent>
                                         <ModalHeader>Search</ModalHeader>
                                         <ModalCloseButton />
                                         <ModalBody>
-                                            <SearchPage/>
-                                            {/* <Tabs variant='soft-rounded' colorScheme='green'>
-                                                <TabList>
-                                                    <Tab>Location</Tab>
-                                                    <Tab>Title</Tab>
-                                                    <Tab>Date</Tab>
-                                                    <Tab>Price</Tab>
-                                                </TabList>
-                                                <TabPanels>
-                                                    <TabPanel>
-                                                        <Stack>
-                                                            <SimpleGrid columns={[2, null, 3]} spacing='30px'>
-                                                                <Box bg='tomato' height='200px'
-                                                                    onClick={() => handleClick("Banaglore")}>
-                                                                    <Image src={Bangalore} width={"100%"} height={"100%"} />
-                                                                </Box>
-                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Mysore")}> <Image src={Mysore} width={"100%"} height={"100%"} /></Box>
-                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Goa")}> <Image src={Goa} width={"100%"} height={"100%"} /></Box>
-                                                                <Box bg='tomato' height='200px'
-
-                                                                    onClick={() => handleClick("Hyderabad")}> <Image src={Hydrabad} width={"100%"} height={"100%"} /></Box>
-                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Chennai")}> <Image src={Channai} width={"100%"} height={"100%"} /></Box>
-                                                                <Box bg='tomato' height='200px' onClick={() => handleClick("Mumbai")}> <Image src={Mumbai} width={"100%"} height={"100%"} /></Box>
-                                                            </SimpleGrid>
-                                                        </Stack>
-                                                    </TabPanel>
-                                                    <TabPanel>
-                                                        <p>title!</p>
-                                                    </TabPanel>
-                                                    <TabPanel>
-                                                        <p>date!</p>
-                                                    </TabPanel>
-                                                    <TabPanel>
-                                                        <p>price!</p>
-                                                    </TabPanel>
-                                                </TabPanels>
-                                            </Tabs> */}
+                                            <SearchPage onClose={onClose} />
                                         </ModalBody>
 
                                         <ModalFooter>
@@ -243,21 +220,22 @@ const Navbar = () => {
                     </HStack>
 
                     <Flex alignItems={'center'}>
-                        <NavLink to="/userProfile">
-                            <Button
-                                as={Button}
-                                rounded={'full'}
-                                variant={'link'}
-                                cursor={'pointer'}
-                                minW={0}
-                                marginRight="20px">
-                                <Avatar
-                                    size={'sm'}
-                                    name={userName}
+                        {isAuth ?
+                            <NavLink to="/userProfile">
+                                <Button
+                                    as={Button}
+                                    rounded={'full'}
+                                    variant={'link'}
+                                    cursor={'pointer'}
+                                    minW={0}
+                                    marginRight="20px">
+                                    <Avatar
+                                        size={'sm'}
+                                        name={userName}
 
-                                />
-                            </Button>
-                        </NavLink>
+                                    />
+                                </Button>
+                            </NavLink> : null}
                         <Box marginRight="20px">
                             {isAuth ? (
                                 <Button colorScheme="blue" onClick={logoutHandler}>
@@ -278,6 +256,7 @@ const Navbar = () => {
                             {/* {Links.map((link) => (
                                 <NavLink key={link}>{link}</NavLink>
                             ))} */}
+                            {isAuth?
                             <NavLink to="propertyform"
                                 px={2}
                                 py={1}
@@ -288,6 +267,7 @@ const Navbar = () => {
                                     Add Property
                                 </Button>
                             </NavLink>
+                            :""}
                         </Stack>
                     </Box>
                 ) : null}

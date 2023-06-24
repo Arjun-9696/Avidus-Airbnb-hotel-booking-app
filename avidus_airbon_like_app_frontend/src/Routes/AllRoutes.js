@@ -15,14 +15,14 @@ const AllRouter = () => {
             <Route
                 path="/"
                 element={
-                    // <PrivateRoute>
+                    <PrivateRoute>
                         <Home />
-                    // </PrivateRoute>
+                    </PrivateRoute>
                 }
             />
-            <Route path="/userProfile" element={<UserProfile />} />
-            <Route path="/property/:id" element={<Property/>} />
-            <Route path="/propertyform" element={<PropertyForm />} />
+            <Route path="/userProfile" element={<PrivateRoute><UserProfile /></PrivateRoute>} />
+            <Route path="/property/:id" element={<PrivateRoute><Property /></PrivateRoute>} />
+            <Route path="/propertyform" element={<PrivateRoute><PropertyForm /></PrivateRoute>} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="*" element={<Error />} />

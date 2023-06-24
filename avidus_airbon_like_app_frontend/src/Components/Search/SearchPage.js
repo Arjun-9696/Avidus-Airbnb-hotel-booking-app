@@ -4,13 +4,23 @@ import SearchForm from './SearchForm';
 import SearchResult from './SearchResult';
 
 
-const SearchPage = () => {
-    const [properties, setProperties] = useState([]);
+const SearchPage = ({ onClose }) => {
+    const [searchedData, setSearchedData] = useState([]);
  
     const handleSearch = async (filters) => {
+        const params = new URLSearchParams()
+        for (const key in filters) {
+            if (filters.hasOwnProperty(key) && filters[key] !== '') {
+                params.append(key, filters[key]);
+            }
+        }
+        const queryString = params.toString();
+        console.log(queryString);
         try {
-            const response = await axios.get('/api/search', { params: filters });
-            setProperties(response.data);
+            const url = `http://localhost:9080/search?${queryString}`;
+            const response = await axios.get(url);
+            console.log('response:serching', response)
+            setSearchedData(response.data);
         } catch (error) {
             console.error(error);
         }
@@ -19,8 +29,9 @@ const SearchPage = () => {
     return (
         <div>
             <h2>Search Properties</h2>
-            <SearchForm handleSearch={handleSearch} />
-            <SearchResult properties={properties} />
+            {searchedData.length > 0 ? <SearchResult onClose={onClose} searchedData={searchedData} setSearchedData={setSearchedData}/> : <SearchForm handleSearch={handleSearch}  />}
+           
+            
           
         </div>
 
