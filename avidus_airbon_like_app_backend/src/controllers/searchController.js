@@ -1,36 +1,35 @@
-// routes/search.js
-const express = require('express');
-const Listing = require('../models/listingModel');
-
+const express= require('express')
+const Property = require('../models/listingModel');
 const router = express.Router();
-
-// Search endpoint
-router.post('/', async (req, res) => {
-    const { location, dateRange, size } = req.body;
-
+// Search for properties based on filters
+router.get("/", async (req, res) => {
     try {
-        let query = {};
+        const { title, description, price, location, startDate, endDate } = req.query;
 
-        // Apply filters
+        // Build the query object based on the provided filters
+        const query = {};
+
+        if (title) {
+            query.title = { $regex: title, $options: 'i' };
+        }
+        if (description) {
+            query.description = { $regex: description, $options: 'i' };
+        }
+        if (price) {
+            query.price = price;
+        }
         if (location) {
-            query.location = location;
+            query.location = { $regex: location, $options: 'i' };
+        }
+        if (startDate && endDate) {
+            query.startDate = { $gte: startDate };
+            query.endDate = { $lte: endDate };
         }
 
-        if (dateRange) {
-            query.dateRange = dateRange;
-        }
-
-        if (size) {
-            query.size = size;
-        }
-
-        // Retrieve filtered property listings from the database
-        const listings = await Listing.find(query);
-
-        res.json({ listings });
+        const properties = await Property.find(query);
+        res.status(200).json(properties);
     } catch (error) {
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: 'Internal server error' });
     }
 });
-
 module.exports = router;
