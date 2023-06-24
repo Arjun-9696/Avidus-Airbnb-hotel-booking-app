@@ -30,8 +30,8 @@ This is a simple Airbnb-like application built using the MERN stack (`MongoDB`, 
 - avidus_airbon_like_app_backend (Backend)
 - avidus_airbon_like_app_frontend (Frontend)
 2. Install dependencies for both the client and server:
-# `cd avidus_airbon_like_app_backend` for backend
-# `cd avidus_airbon_like_app_frontend` for frontend
+### `cd avidus_airbon_like_app_backend` for backend
+### `cd avidus_airbon_like_app_frontend` for frontend
 ## `npm install`
 
 3. Configure the database `Backend`:
