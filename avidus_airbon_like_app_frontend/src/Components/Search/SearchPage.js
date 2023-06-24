@@ -18,7 +18,7 @@ const SearchPage = ({ onClose }) => {
 
         const queryString = params.toString();
         try {
-            const url = `http://localhost:9080/search?${queryString}`;
+            const url = `https://avidus-assignment-production.up.railway.app/search?${queryString}`;
             const response = await axios.get(url);
             setSearchedData(response.data);
         } catch (error) {

@@ -14,7 +14,7 @@ function PropertyForm() {
         e.preventDefault();
         try {
             // Make a POST request to the backend API to create a property listing
-            const response = await axios.post('http://localhost:9080/listings', {
+            const response = await axios.post('https://avidus-assignment-production.up.railway.app/listings', {
                 title,
                 description,
                 location,

@@ -6,7 +6,7 @@ const register = (payload) => (dispatch) => {
     dispatch({ type: types.REGISTER_REQUEST });
 
     return axios
-        .post('http://localhost:9080/register', payload)
+        .post('https://avidus-assignment-production.up.railway.app/register', payload)
         .then((r) => {
             dispatch({ type: types.REGISTER_SUCCESS, payload: r.data });
             return types.REGISTER_SUCCESS;
@@ -21,7 +21,7 @@ const login = (params) => (dispatch) => {
     dispatch({ type: types.LOGIN_REQUEST });
 
     return axios
-        .post('http://localhost:9080/login', params)
+        .post('https://avidus-assignment-production.up.railway.app/login', params)
         .then((r) => {
             dispatch({ type: types.LOGIN_SUCCESS, payload: r.data });
             return types.LOGIN_SUCCESS;

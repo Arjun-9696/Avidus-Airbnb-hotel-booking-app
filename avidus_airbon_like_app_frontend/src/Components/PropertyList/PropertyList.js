@@ -10,7 +10,7 @@ function PropertyList() {
         // Make a GET request to the backend API to fetch property listings
         const fetchProperties = async () => {
             try {
-                const response = await axios.get('http://localhost:9080/listings');
+                const response = await axios.get('https://avidus-assignment-production.up.railway.app/listings');
                 console.log('response:', response)
                 setProperties(response.data.listings
                 );

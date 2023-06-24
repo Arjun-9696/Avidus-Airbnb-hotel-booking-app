@@ -58,7 +58,7 @@ const Property = () => {
 
     const fetchProperties = async () => {
         try {
-            const response = await axios.get(`http://localhost:9080/listings/${id}`);
+            const response = await axios.get(`https://avidus-assignment-production.up.railway.app/listings/${id}`);
             console.log('response:', response);
             setProperty(response.data.list);
         } catch (error) {
@@ -85,7 +85,7 @@ const Property = () => {
                 cost: finalPrice,
             };
             // Make a POST request to the backend API to create a booking
-            const response = await axios.post('http://localhost:9080/booking', data);
+            const response = await axios.post('https://avidus-assignment-production.up.railway.app/booking', data);
             toast({
                 title: 'Property Booked Successfully 🥳',
                 description: 'Enjoy your vacation 👍',
