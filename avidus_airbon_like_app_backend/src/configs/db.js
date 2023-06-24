@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+require('dotenv').config();
 module.exports = () => {
     return mongoose.connect(
-        'mongodb+srv://Arjun:Arjun009@cluster0.4dwre.mongodb.net/avidus_airbon_app?retryWrites=true&w=majority'
+        process.env.MONGODB_DATABASE
     );
 };
 

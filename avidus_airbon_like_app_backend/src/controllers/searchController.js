@@ -1,11 +1,11 @@
-const express= require('express')
+const express = require('express')
 const Property = require('../models/listingModel');
 const router = express.Router();
+
 // Search for properties based on filters
 router.get("/", async (req, res) => {
     try {
         const { title, description, price, location, startDate, endDate } = req.query;
-
         // Build the query object based on the provided filters
         const query = {};
 
