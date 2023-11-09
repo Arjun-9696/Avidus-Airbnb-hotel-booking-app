@@ -18,7 +18,7 @@ const SearchPage = ({ onClose }) => {
 
         const queryString = params.toString();
         try {
-            const url = `https://avidus-assignment-production.up.railway.app/search?${queryString}`;
+            const url = `https://avidus-backend.onrender.com/search?${queryString}`;
             const response = await axios.get(url);
             setSearchedData(response.data);
         } catch (error) {
