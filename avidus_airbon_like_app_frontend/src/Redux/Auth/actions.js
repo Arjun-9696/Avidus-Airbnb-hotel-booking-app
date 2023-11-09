@@ -5,7 +5,7 @@ const register = (payload) => (dispatch) => {
     dispatch({ type: types.REGISTER_REQUEST });
 
     return axios
-        .post('https://avidus-assignment-production.up.railway.app/register', payload)
+        .post('https://avidus-backend.onrender.com/register', payload)
         .then((r) => {
             dispatch({ type: types.REGISTER_SUCCESS, payload: r.data });
             return types.REGISTER_SUCCESS;
@@ -20,7 +20,7 @@ const login = (params) => (dispatch) => {
     dispatch({ type: types.LOGIN_REQUEST });
 
     return axios
-        .post('https://avidus-assignment-production.up.railway.app/login', params)
+        .post('https://avidus-backend.onrender.com/login', params)
         .then((r) => {
             dispatch({ type: types.LOGIN_SUCCESS, payload: r.data });
             return types.LOGIN_SUCCESS;
