@@ -25,7 +25,7 @@ function UserProfile() {
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
-                const response = await axios.get(`https://avidus-assignment-production.up.railway.app/booking/${userId}`);
+                const response = await axios.get(`https://avidus-backend.onrender.com/booking/${userId}`);
                 setBooked(response.data.bookings);
             } catch (error) {
                 console.error(error);
@@ -39,7 +39,7 @@ function UserProfile() {
         const fetchData = async () => {
             const propertyIds = booked?.map(obj => obj.propertyId);
             const requests = propertyIds?.map(propertyId =>
-                axios.get(`https://avidus-assignment-production.up.railway.app/listings/${propertyId}`)
+                axios.get(`https://avidus-backend.onrender.com/listings/${propertyId}`)
             );
             try {
                 const responses = await Promise.all(requests);
