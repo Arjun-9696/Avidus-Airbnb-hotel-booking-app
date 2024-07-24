@@ -1,4 +1,4 @@
-# `Avidus-Assignment` Airbnb-like Application
+# `Avidus` Airbnb-like Application
 
 This is a simple Airbnb-like application built using the MERN stack (`MongoDB`, `Express.js`, `React`, `Node.js`). The application allows users to `register`, `create property listings`, `search for properties`, `book properties`, and `view user profiles`.
 
